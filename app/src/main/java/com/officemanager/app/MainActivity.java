@@ -41,6 +41,18 @@ public class MainActivity extends Activity {
 
     private class OfficeBridge {
         @JavascriptInterface
+        public boolean scheduleTeaReminder(String time) {
+            if (time == null || !time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) return false;
+            try {
+                String[] parts = time.split(":");
+                return ReminderScheduler.scheduleDaily(MainActivity.this,
+                        Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        @JavascriptInterface
         public void printReport() {
             runOnUiThread(() -> {
                 PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
