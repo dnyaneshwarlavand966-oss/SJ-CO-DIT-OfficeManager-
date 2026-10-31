@@ -16,11 +16,21 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 
 public class MainActivity extends Activity {
     private static final int REQUEST_SELFIE = 7101;
     private WebView webView;
     private boolean selfiePending = false;
+    private long salaryAccessUntil = 0L;
+    private static final String SALARY_KEY_ALIAS = "SJOfficeSalaryEncryptionKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,7 @@ public class MainActivity extends Activity {
                 android.content.SharedPreferences.Editor edit = prefs.edit();
                 if (valid) {
                     edit.putInt("failed_attempts", 0).putLong("lock_until", 0L);
+                    salaryAccessUntil = System.currentTimeMillis() + 5 * 60 * 1000L;
                 } else {
                     int attempts = prefs.getInt("failed_attempts", 0) + 1;
                     edit.putInt("failed_attempts", attempts);
@@ -87,6 +98,57 @@ public class MainActivity extends Activity {
             } catch (Exception e) {
                 return false;
             }
+        }
+
+        private boolean hasSalarySession() {
+            return System.currentTimeMillis() < salaryAccessUntil;
+        }
+
+        private SecretKey getSalaryEncryptionKey() throws Exception {
+            KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
+            keyStore.load(null);
+            if (keyStore.containsAlias(SALARY_KEY_ALIAS)) return (SecretKey) keyStore.getKey(SALARY_KEY_ALIAS, null);
+            KeyGenerator generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+            generator.init(new KeyGenParameterSpec.Builder(SALARY_KEY_ALIAS,
+                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                    .setRandomizedEncryptionRequired(true).build());
+            return generator.generateKey();
+        }
+
+        @JavascriptInterface
+        public String getPrivateSalary() {
+            if (!hasSalarySession()) return "[]";
+            try {
+                String encoded = getSharedPreferences("owner_salary_vault", MODE_PRIVATE).getString("salary_ciphertext", null);
+                if (encoded == null) return "[]";
+                byte[] payload = Base64.decode(encoded, Base64.NO_WRAP);
+                if (payload.length < 13) return "[]";
+                byte[] iv = java.util.Arrays.copyOfRange(payload, 0, 12);
+                byte[] ciphertext = java.util.Arrays.copyOfRange(payload, 12, payload.length);
+                Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+                cipher.init(Cipher.DECRYPT_MODE, getSalaryEncryptionKey(), new GCMParameterSpec(128, iv));
+                return new String(cipher.doFinal(ciphertext), StandardCharsets.UTF_8);
+            } catch (Exception e) { return "[]"; }
+        }
+
+        @JavascriptInterface
+        public boolean savePrivateSalary(String json) {
+            if (!hasSalarySession() || json == null || json.length() > 2_000_000) return false;
+            try {
+                org.json.JSONArray validated = new org.json.JSONArray(json);
+                byte[] iv = new byte[12];
+                new java.security.SecureRandom().nextBytes(iv);
+                Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+                cipher.init(Cipher.ENCRYPT_MODE, getSalaryEncryptionKey(), new GCMParameterSpec(128, iv));
+                byte[] encrypted = cipher.doFinal(validated.toString().getBytes(StandardCharsets.UTF_8));
+                byte[] payload = new byte[iv.length + encrypted.length];
+                System.arraycopy(iv, 0, payload, 0, iv.length);
+                System.arraycopy(encrypted, 0, payload, iv.length, encrypted.length);
+                return getSharedPreferences("owner_salary_vault", MODE_PRIVATE).edit()
+                        .putString("salary_ciphertext", Base64.encodeToString(payload, Base64.NO_WRAP)).commit();
+            } catch (Exception e) { return false; }
         }
 
         private byte[] ownerPinHash(byte[] salt, String pin) throws Exception {
