@@ -9,11 +9,30 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  validate-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+      - name: Validate HTML and JavaScript
+        run: |
+          test -s app/src/main/assets/index.html
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class CheckHTML(HTMLParser):
+              pass
+          p = Path("app/src/main/assets/index.html")
+          text = p.read_text(encoding="utf-8")
+          CheckHTML().feed(text)
+          start = text.find("<script>")
+          end = text.find("</script>", start + 8)
+          if start < 0 or end < 0:
+              raise SystemExit("Inline JavaScript block missing")
+          Path("/tmp/office-manager-inline.js").write_text(text[start + 8:end], encoding="utf-8")
+          print("HTML parsed; inline JavaScript extracted.")
+          PY
+          node --check /tmp/office-manager-inline.js
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
