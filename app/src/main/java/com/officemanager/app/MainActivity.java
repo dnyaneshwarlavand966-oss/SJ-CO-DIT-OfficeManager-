@@ -41,6 +41,61 @@ public class MainActivity extends Activity {
 
     private class OfficeBridge {
         @JavascriptInterface
+        public boolean hasOwnerPin() {
+            return getSharedPreferences("owner_security", MODE_PRIVATE).contains("pin_hash");
+        }
+
+        @JavascriptInterface
+        public boolean saveOwnerPin(String pin) {
+            if (pin == null || !pin.matches("[0-9]{6}")) return false;
+            try {
+                byte[] salt = new byte[16];
+                new java.security.SecureRandom().nextBytes(salt);
+                byte[] hash = ownerPinHash(salt, pin);
+                return getSharedPreferences("owner_security", MODE_PRIVATE).edit()
+                        .putString("pin_salt", Base64.encodeToString(salt, Base64.NO_WRAP))
+                        .putString("pin_hash", Base64.encodeToString(hash, Base64.NO_WRAP))
+                        .putInt("failed_attempts", 0).putLong("lock_until", 0L).commit();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        @JavascriptInterface
+        public boolean verifyOwnerPin(String pin) {
+            if (pin == null || !pin.matches("[0-9]{6}")) return false;
+            android.content.SharedPreferences prefs = getSharedPreferences("owner_security", MODE_PRIVATE);
+            long lockUntil = prefs.getLong("lock_until", 0L);
+            if (System.currentTimeMillis() < lockUntil) return false;
+            String saltText = prefs.getString("pin_salt", null);
+            String hashText = prefs.getString("pin_hash", null);
+            if (saltText == null || hashText == null) return false;
+            try {
+                byte[] salt = Base64.decode(saltText, Base64.NO_WRAP);
+                byte[] expected = Base64.decode(hashText, Base64.NO_WRAP);
+                boolean valid = java.security.MessageDigest.isEqual(expected, ownerPinHash(salt, pin));
+                android.content.SharedPreferences.Editor edit = prefs.edit();
+                if (valid) {
+                    edit.putInt("failed_attempts", 0).putLong("lock_until", 0L);
+                } else {
+                    int attempts = prefs.getInt("failed_attempts", 0) + 1;
+                    edit.putInt("failed_attempts", attempts);
+                    if (attempts >= 5) edit.putLong("lock_until", System.currentTimeMillis() + 60000L).putInt("failed_attempts", 0);
+                }
+                edit.apply();
+                return valid;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        private byte[] ownerPinHash(byte[] salt, String pin) throws Exception {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+            digest.update(salt);
+            return digest.digest(pin.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        }
+
+        @JavascriptInterface
         public boolean scheduleTeaReminder(String time) {
             if (time == null || !time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) return false;
             try {
