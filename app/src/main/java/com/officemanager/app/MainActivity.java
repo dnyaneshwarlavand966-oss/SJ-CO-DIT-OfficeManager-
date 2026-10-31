@@ -1,6 +1,8 @@
 package com.officemanager.app;
 
 import android.app.Activity;
+import android.os.Build;
+import android.content.pm.PackageManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,6 +25,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ReminderScheduler.scheduleDaily(this);
+        if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 8201);
+        }
         webView = new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
