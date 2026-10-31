@@ -7,7 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import androidx.core.app.NotificationCompat;
+import android.app.Notification;
 
 public class TeaCoffeeReminderReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "tea_coffee_daily_reminder";
@@ -21,13 +21,15 @@ public class TeaCoffeeReminderReceiver extends BroadcastReceiver {
         open.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent tap = PendingIntent.getActivity(context, 5108, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+        Notification.Builder notification = Build.VERSION.SDK_INT >= 26
+                ? new Notification.Builder(context, CHANNEL_ID)
+                : new Notification.Builder(context);
+        notification.setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle("चहा-कॉफीचा हिशोब")
                 .setContentText("आजचा चहा आणि कॉफीचा हिशोब नोंदवला आहे का? ॲप उघडून नोंद करा.")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("आजचा चहा आणि कॉफीचा हिशोब नोंदवला आहे का? ॲप उघडून कपांची संख्या आणि खर्च नोंदवा."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new Notification.BigTextStyle().bigText("आजचा चहा आणि कॉफीचा हिशोब नोंदवला आहे का? ॲप उघडून कपांची संख्या आणि खर्च नोंदवा."))
                 .setAutoCancel(true).setContentIntent(tap);
+        if (Build.VERSION.SDK_INT < 26) notification.setPriority(Notification.PRIORITY_DEFAULT);
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null && (Build.VERSION.SDK_INT < 33 ||
                 context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED)) {
