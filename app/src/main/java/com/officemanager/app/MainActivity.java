@@ -158,6 +158,14 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
+        public boolean cancelTeaReminder() {
+            try {
+                ReminderScheduler.cancelDaily(MainActivity.this);
+                return true;
+            } catch (Exception e) { return false; }
+        }
+
+        @JavascriptInterface
         public boolean scheduleTeaReminder(String time) {
             if (time == null || !time.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) return false;
             try {
