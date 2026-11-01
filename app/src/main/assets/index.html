@@ -92,8 +92,32 @@ table{font-size:11px}th{color:#45618f}
 #leave .stats{grid-template-columns:repeat(3,minmax(0,1fr));margin:10px 0}#leave .stat{padding:11px 8px}#leave .stat strong{font-size:21px}
 #staffSearch{margin:0 0 12px}#documents input[type=file]{padding:10px;background:#f6f9ff}
 #attendance .attendance-person{background:linear-gradient(145deg,#fff,#f5f9ff)}#salary .section-title{margin-top:4px}#home .stats .stat{min-height:90px}#home .section-title{margin-top:18px}#home .tile{min-height:102px}
+
+/* Final correction from real-device screenshots: remove duplicate/empty hero and keep navigation clear of content. */
+html,body{min-height:100%;background:#edf3ff}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.app-header{display:flex;align-items:center;gap:13px;min-height:104px;padding:18px 17px 19px;border-radius:0 0 24px 24px;background:linear-gradient(120deg,#07399f 0%,#075ce0 58%,#1595f4 100%);box-shadow:0 7px 18px #063d9d35}
+.app-header:after{content:none!important;display:none!important}
+.brand-mark{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:15px;border:1px solid #ffffff65;background:linear-gradient(145deg,#ffffff35,#ffffff12);color:#fff;font-weight:900;font-size:18px;letter-spacing:-1px;box-shadow:inset 0 1px 0 #ffffff55}
+.brand-copy{min-width:0}.app-header small{display:block;font-size:9px;letter-spacing:1.1px;opacity:.9}.app-header h1{font-size:22px;line-height:1.15;margin:5px 0 3px}.app-header p{font-size:11px;line-height:1.3;margin:0;opacity:.95}
+.wrap{max-width:520px;padding:13px 12px 110px}
+.date{padding:11px 14px;border-radius:15px;background:#fff;color:#1c4aa0;font-size:13px;font-weight:700;box-shadow:0 3px 12px #15438f15}
+#home>.stats{margin-top:10px}
+#home>.card:first-of-type{margin-top:12px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;padding:8px 3px calc(8px + env(safe-area-inset-bottom));display:flex;gap:3px;justify-content:space-around;background:#ffffffF2;border:1px solid #d9e6ff;border-bottom:0;border-radius:22px 22px 0 0;box-shadow:0 -5px 20px #103e8d18;backdrop-filter:blur(14px)}
+.nav button{flex:1;min-width:0;border:0;background:transparent;color:#53698f;font-size:11px;line-height:1.35;padding:7px 2px;border-radius:14px;white-space:nowrap}
+.nav button.active{background:linear-gradient(180deg,#1685ff,#0344cb);border-radius:14px;color:#fff;padding:9px 2px;box-shadow:0 3px 8px #0759d84a}
+.screenbar{position:relative;top:auto;margin:-13px -12px 13px;padding:15px 14px;min-height:67px}
+.page{min-height:55vh}
+#home .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+#home .tile{min-height:106px;padding:12px 7px;text-align:center}
+#home .tile .icon{margin:0 auto 7px}
+#home .tile b{font-size:11px;line-height:1.25}
+#home .tile small{font-size:9px;line-height:1.25}
+@media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media print{body{padding-bottom:0}.app-header,.nav{display:none!important}.wrap{padding:0}.screenbar{display:none!important}}
 </style></head><body>
-<header><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></header>
+<header class="app-header"><div class="brand-mark">SJ</div><div class="brand-copy"><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></div></header>
 <div class="wrap">
 <div class="page active" id="home"><p class="date" id="today"></p><div class="stats"><div class="stat"><span>आजचा चहा / कॉफी खर्च</span><strong id="teaTotal">₹0</strong><em>☕ दैनिक हिशोब</em></div><div class="stat"><span>आजची उपस्थिती</span><strong id="attTotal">0</strong><em>✓ नोंदवलेले कर्मचारी</em></div></div><div class="card" style="margin-top:12px"><h3>🗓️ आजची हजेरी स्थिती</h3><div class="stats"><div class="stat"><span>Present</span><strong id="homePresent">0</strong></div><div class="stat"><span>Absent</span><strong id="homeAbsent">0</strong></div></div><p id="homeAbsentNames" class="empty">आजची हजेरी नोंद झाल्यावर गैरहजर कर्मचाऱ्यांची नावे येथे दिसतील.</p><button class="secondary" onclick="showPage('attendance')">हजेरी तपासा →</button></div>
 <div class="section-title"><h2>Quick Access</h2><span>मुख्य सुविधा</span></div><div class="grid">
@@ -158,12 +182,7 @@ setInterval(()=>{if(salaryUnlockedUntil&&Date.now()>salaryUnlockedUntil){salaryU
   const back=document.createElement("button");back.type="button";back.textContent="‹";back.setAttribute("aria-label","मागे");back.onclick=()=>showPage("home");
   const title=document.createElement("strong");title.textContent=labels[id];bar.append(back,title);page.insertBefore(bar,page.firstChild);
  });
- const home=document.getElementById("home");
- if(home&&!home.querySelector(".welcome-banner")){
-  const banner=document.createElement("div");banner.className="welcome-banner";
-  banner.innerHTML='<div><small>WORK SMART · GROW TOGETHER</small><b>SJ &amp; CO.DIT</b><span>Office Management Dashboard</span></div>';
-  const date=home.querySelector("#today");if(date)date.insertAdjacentElement("afterend",banner);else home.insertBefore(banner,home.firstChild);
- }
+
 })();
 
 </script></body></html>
