@@ -165,10 +165,57 @@ body{padding-bottom:76px}
 @media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 /* End reference UI refinement */
 
+
+/* Screen-specific layout pass for the supplied 14-screen visual reference */
+:root{--bg:#eaf2ff;--ink:#102b69;--muted:#60749b;--line:#d2e1ff;--blue:#0759df}
+body{background:linear-gradient(180deg,#dceaff 0,#f5f8ff 38%,#e9f1ff 100%);color:var(--ink)}
+.app-header{min-height:88px;padding:15px 16px;border-radius:0 0 23px 23px;background:linear-gradient(115deg,#002775,#0758df 60%,#169bfa);box-shadow:0 7px 20px #063d9d35}
+.brand-mark{border-radius:14px;background:linear-gradient(145deg,#fff,#d8eaff);color:#0751c7;box-shadow:0 3px 9px #001b6540}
+.brand-copy h1{font-size:21px;margin:5px 0 2px}.brand-copy small{font-size:9px;letter-spacing:1px}
+.wrap{max-width:520px;padding:12px 12px 105px}
+.date{padding:10px 13px;background:#fff;border:1px solid #cbdcff;border-radius:14px;color:#174b9c;font-weight:700;box-shadow:0 3px 10px #16478e16}
+.welcome-banner{position:relative;overflow:hidden;min-height:126px;margin:10px 0 13px;padding:17px;border-radius:19px;color:#fff;background:linear-gradient(110deg,#06358e,#087ce9 65%,#65c3ff);box-shadow:0 7px 18px #0c4ba52e}
+.welcome-banner:after{content:"🏢";position:absolute;right:14px;bottom:-5px;font-size:65px;opacity:.88;text-shadow:0 3px 8px #00265e}
+.welcome-banner small,.welcome-banner b,.welcome-banner span{display:block;position:relative;z-index:1}
+.welcome-banner small{font-size:9px;letter-spacing:1.1px}.welcome-banner b{font-size:20px;margin-top:13px}.welcome-banner span{font-size:11px;margin-top:4px}
+.stat,.card{border:1px solid #d3e2ff;border-radius:19px;background:linear-gradient(145deg,#fff,#f2f7ff);box-shadow:0 5px 14px #153f8c18}
+.stat{padding:12px 10px;border-bottom:3px solid #087bfa}.stat strong{color:#0754d5;font-size:23px}
+.section-title{margin:17px 2px 10px}.section-title h2{color:#123b83;font-size:16px;font-weight:800}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.tile{min-height:104px;padding:12px 7px;text-align:center;border:1px solid #c6d9ff;border-radius:17px;background:linear-gradient(145deg,#fff,#e7f1ff);color:#10418f;box-shadow:0 4px 0 #b8d0f8,0 7px 13px #14458d18}
+.tile .icon{width:42px;height:42px;margin:0 auto 7px;border-radius:14px;background:linear-gradient(145deg,#e5f2ff,#c9e1ff);color:#0758d7;font-size:24px}
+.tile b{font-size:11px;line-height:1.25;color:#123b83}.tile small{font-size:9px;color:#6076a4;line-height:1.25}
+button.primary{border-radius:14px;background:linear-gradient(180deg,#1687ff,#0344c9);box-shadow:0 4px 0 #06358f,0 6px 12px #0752c52b;padding:12px 15px}
+button.secondary{border-radius:13px;background:linear-gradient(180deg,#fff,#e3edff);color:#0754ce;border:1px solid #c6d9ff;box-shadow:0 3px 8px #0b4aa212}
+input,select,textarea{border:1px solid #c5d9ff;border-radius:12px;background:#fff;min-height:43px;color:#16336e}
+.page.active{animation:refPageIn .18s ease-out}@keyframes refPageIn{from{opacity:.75;transform:translateY(4px)}to{opacity:1;transform:none}}
+.page:not(#home)>.screenbar{margin:-12px -12px 14px;padding:15px 14px;min-height:67px;display:flex;align-items:center;gap:12px;color:#fff;background:linear-gradient(115deg,#002775,#0758df 65%,#159bfa);box-shadow:0 6px 16px #063c9c30}
+.screenbar button{border:0;background:#ffffff20;color:#fff;border-radius:12px;width:37px;height:37px;font-size:24px}
+.screenbar strong{font-size:17px}
+#tea #monthlyDrinkCounters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#tea #monthlyDrinkCounters>div{border:1px solid #c6dbff!important;border-radius:18px!important;background:linear-gradient(145deg,#fff,#eaf3ff)!important;box-shadow:0 4px 12px #17458d12!important;padding:13px!important}
+#tea #monthlyDrinkCounters button{min-width:40px;min-height:40px;border-radius:50%;font-size:20px}
+#attendance .attendance-person{border:1px solid #cbdcff;border-radius:17px;background:linear-gradient(145deg,#fff,#f1f6ff);box-shadow:0 4px 12px #17458d12;padding:11px}
+#attendance .attendance-avatar{width:50px;height:50px;border-radius:50%;border:2px solid white;background:linear-gradient(145deg,#e3f2ff,#9fcaff);box-shadow:0 2px 8px #0a5cbd25}
+#attendance .attendance-tap{border-radius:14px;box-shadow:0 3px 0 #06368f}
+#staff .staff-row,#leave .leave-row,#documents .doc-row{border-radius:16px;background:linear-gradient(145deg,#fff,#f2f7ff);border:1px solid #d2e1ff;box-shadow:0 4px 12px #17458d12}
+#staff .staff-avatar{border-radius:50%;background:linear-gradient(145deg,#e3f2ff,#9fcaff);border:2px solid white}
+#leave .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#leave .stat{padding:10px 7px}#leave .stat strong{font-size:21px}
+#salary .card{border:1px solid #bdd3ff;box-shadow:0 6px 18px #16458e20}
+#documents input[type=file]{padding:10px;background:#f6f9ff}
+#reports .card,#expense .card,#income .card,#tasks .card,#clients .card{margin-top:12px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;padding:8px 3px calc(8px + env(safe-area-inset-bottom));background:#fffffff2;border:1px solid #d9e6ff;border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -5px 20px #103e8d18;backdrop-filter:blur(14px)}
+.nav button{flex:1;min-width:0;color:#53698f;font-size:10px;padding:7px 2px}
+.nav button.active{background:linear-gradient(180deg,#1685ff,#0344cb);border-radius:13px;color:#fff;padding:9px 2px;box-shadow:0 3px 8px #0759d84a}
+@media(max-width:370px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tile{min-height:100px}.brand-copy h1{font-size:18px}}
+@media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media print{.nav,.screenbar{display:none!important}.wrap{padding:0}}
+
 </style></head><body>
 <header class="app-header"><div class="brand-mark">SJ</div><div class="brand-copy"><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></div></header>
 <div class="wrap">
-<div class="page active" id="home"><p class="date" id="today"></p><div class="stats"><div class="stat"><span>आजचा चहा / कॉफी खर्च</span><strong id="teaTotal">₹0</strong><em>☕ दैनिक हिशोब</em></div><div class="stat"><span>आजची उपस्थिती</span><strong id="attTotal">0</strong><em>✓ नोंदवलेले कर्मचारी</em></div></div><div class="card" style="margin-top:12px"><h3>🗓️ आजची हजेरी स्थिती</h3><div class="stats"><div class="stat"><span>Present</span><strong id="homePresent">0</strong></div><div class="stat"><span>Absent</span><strong id="homeAbsent">0</strong></div></div><p id="homeAbsentNames" class="empty">आजची हजेरी नोंद झाल्यावर गैरहजर कर्मचाऱ्यांची नावे येथे दिसतील.</p><button class="secondary" onclick="showPage('attendance')">हजेरी तपासा →</button></div>
+<div class="page active" id="home"><p class="date" id="today"></p><div class="welcome-banner" id="referenceWelcomeBanner"><small>SJ & CO.DIT · OFFICE MANAGER</small><b>Work Smart · Grow Together</b><span>Office Management Dashboard</span></div><div class="stats"><div class="stat"><span>आजचा चहा / कॉफी खर्च</span><strong id="teaTotal">₹0</strong><em>☕ दैनिक हिशोब</em></div><div class="stat"><span>आजची उपस्थिती</span><strong id="attTotal">0</strong><em>✓ नोंदवलेले कर्मचारी</em></div></div><div class="card" style="margin-top:12px"><h3>🗓️ आजची हजेरी स्थिती</h3><div class="stats"><div class="stat"><span>Present</span><strong id="homePresent">0</strong></div><div class="stat"><span>Absent</span><strong id="homeAbsent">0</strong></div></div><p id="homeAbsentNames" class="empty">आजची हजेरी नोंद झाल्यावर गैरहजर कर्मचाऱ्यांची नावे येथे दिसतील.</p><button class="secondary" onclick="showPage('attendance')">हजेरी तपासा →</button></div>
 <div class="section-title"><h2>Quick Access</h2><span>मुख्य सुविधा</span></div><div class="grid">
 <button class="tile" onclick="showPage('tea')"><div class="icon">☕</div><b>चहा आणि कॉफी</b><small>दैनिक खर्चाची नोंद</small></button>
 <button class="tile" onclick="showPage('attendance')"><div class="icon">🗓️</div><b>हजेरी / Attendance</b><small>कर्मचारी उपस्थिती</small></button>
