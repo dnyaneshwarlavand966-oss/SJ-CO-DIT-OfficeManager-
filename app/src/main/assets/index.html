@@ -116,6 +116,55 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 #home .tile small{font-size:9px;line-height:1.25}
 @media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media print{body{padding-bottom:0}.app-header,.nav{display:none!important}.wrap{padding:0}.screenbar{display:none!important}}
+
+/* ===== Reference 14-screen premium blue UI refinement ===== */
+:root{--bg:#e8f0ff;--ink:#102d70;--muted:#6076a4;--blue:#075be8;--line:#cbdcff;--card:#fff}
+html,body{background:#e7efff}
+body{font-family:Arial,'Noto Sans Devanagari',sans-serif;background:linear-gradient(180deg,#dceaff 0,#f7f9ff 42%,#e8f0ff 100%);color:#102d70}
+.app-header{display:flex;align-items:center;gap:12px;min-height:82px;padding:13px 16px;border-radius:0 0 22px 22px;background:linear-gradient(115deg,#001c72,#075ce5 60%,#149aff);box-shadow:0 6px 18px #063c9c45;position:relative}
+.app-header:after{content:"";position:absolute;right:13px;top:15px;width:36px;height:36px;border:2px solid #ffffff80;border-radius:50%;background:linear-gradient(#fff2,#fff0)}
+.brand-mark{width:45px;height:45px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#c9e3ff);color:#0646ba;font-weight:900;font-size:20px;box-shadow:0 3px 9px #001b6540}
+.brand-copy{position:relative;z-index:1}.brand-copy small{font-size:9px;letter-spacing:1px}.brand-copy h1{font-size:20px;margin:4px 0 2px}.brand-copy p{font-size:10px;margin:0;opacity:.9}
+.app-header:before{content:"9:41  ◈  ▴  ▰";position:absolute;top:3px;left:15px;font-size:9px;color:#fff;opacity:.88}
+.wrap{max-width:520px;padding:12px 11px 26px}
+.page{min-height:65vh}
+.page:not(#home) .section-title{padding:14px 13px;margin:-12px -11px 13px;background:linear-gradient(115deg,#00277f,#075ce5 65%,#168fff);color:#fff;box-shadow:0 5px 14px #063c9c35}
+.page:not(#home) .section-title h2{color:#fff;font-size:17px}
+.page:not(#home) .section-title .badge{background:#ffffff24;color:#fff;border-color:#ffffff44}
+.page>h2{padding:14px 13px;margin:-12px -11px 13px;background:linear-gradient(115deg,#00277f,#075ce5 65%,#168fff);color:white;border-radius:0 0 17px 17px;font-size:17px}
+.date{padding:10px 13px;background:#fff;border:1px solid #cbdcff;border-radius:14px;color:#174b9c;font-weight:700;box-shadow:0 3px 10px #16478e16}
+.card,.stat{border:1px solid #cbdcff;border-radius:19px;background:linear-gradient(145deg,#fff,#f1f6ff);box-shadow:0 5px 14px #153f8c20}
+.card{padding:14px}.card h3{color:#103d91;font-size:14px}
+.stats{gap:9px}.stat{padding:12px 10px;border-bottom:3px solid #087bfa}.stat strong{color:#0754d5;font-size:24px}
+.section-title{margin:17px 2px 10px}.section-title h2{color:#123b8b;font-size:16px}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.tile,.grid .tile{min-height:104px;padding:12px 7px;text-align:center;border:1px solid #bcd5ff;border-radius:17px;background:linear-gradient(145deg,#fff,#e7f1ff);color:#10418f;box-shadow:0 4px 0 #b3cefa,0 7px 13px #14458d20}
+.tile:nth-child(n){background:linear-gradient(145deg,#fff,#e7f1ff);color:#10418f;box-shadow:0 4px 0 #b3cefa,0 7px 13px #14458d20}
+.tile .icon{width:43px;height:43px;margin:0 auto 7px;border-radius:14px;background:linear-gradient(145deg,#e5f2ff,#c9e1ff);color:#0758d7;font-size:24px}
+.tile b{font-size:11px;color:#123b83}.tile small{font-size:9px;color:#6076a4}
+button.primary{border-radius:14px;background:linear-gradient(180deg,#1687ff,#0344c9);box-shadow:0 4px 0 #06358f,0 6px 12px #0752c52b;padding:12px 15px}
+button.secondary{border-radius:13px;background:linear-gradient(180deg,#fff,#e3edff);color:#0754ce;border:1px solid #c6d9ff;box-shadow:0 3px 8px #0b4aa212}
+input,select,textarea{border:1px solid #c5d9ff;border-radius:12px;background:#fff;min-height:43px;color:#16336e}
+.attendance-person,.staff-row{border:1px solid #cbdcff!important;border-radius:16px!important;background:linear-gradient(145deg,#fff,#f1f6ff)!important;box-shadow:0 4px 12px #17458d12!important}
+.attendance-avatar{border-radius:50%;background:linear-gradient(145deg,#e3f2ff,#c4dcff);border:2px solid #fff;box-shadow:0 2px 8px #0a5cbd25}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:20;margin:0;background:#fffffff2;border:1px solid #d6e4ff;border-radius:18px 18px 0 0;padding:7px 2px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #103e8d20}
+.nav button{flex:1;min-width:0;font-size:10px;color:#526b98;padding:5px 2px}
+.nav button.active{background:linear-gradient(180deg,#1685ff,#0344cb);border-radius:12px;color:#fff;padding:8px 2px;box-shadow:0 3px 8px #0759d84a}
+body{padding-bottom:76px}
+#home .welcome-banner{min-height:135px;border-radius:19px;background:linear-gradient(110deg,#06358e,#087ce9 65%,#65c3ff);box-shadow:0 7px 18px #0c4ba52e}
+#home .welcome-banner:after{content:"🏢";font-size:64px;right:12px;bottom:4px;opacity:.9}
+#home .stats .stat{min-height:88px}
+#tea #monthlyDrinkCounters>div{background:linear-gradient(145deg,#fff,#eaf3ff)!important;border:1px solid #c6dbff!important;border-radius:18px!important;box-shadow:0 4px 12px #17458d12}
+#tea #monthlyDrinkCounters b{font-size:18px;color:#10418f}
+#tea #monthlyDrinkCounters strong{font-size:22px;color:#0754d5}
+#attendance .attendance-tap{border-radius:13px;box-shadow:0 3px 0 #06368f}
+#salary .card{border:1px solid #b9d0ff;box-shadow:0 6px 18px #16458e20}
+#documents .card,#leave .card,#reports .card{margin-bottom:12px}
+#settings .card{border:1px solid #bfd5ff}
+@media(max-width:370px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tile{min-height:100px}.brand-copy h1{font-size:18px}}
+@media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* End reference UI refinement */
+
 </style></head><body>
 <header class="app-header"><div class="brand-mark">SJ</div><div class="brand-copy"><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></div></header>
 <div class="wrap">
