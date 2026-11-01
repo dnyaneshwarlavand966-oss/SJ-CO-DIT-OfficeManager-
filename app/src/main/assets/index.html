@@ -44,6 +44,50 @@ header p{font-size:12px;opacity:1}
 .selfie-sheet-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.selfie-camera-icon{width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#168bff,#064bc8);display:grid;place-items:center;color:#fff;font-size:27px;box-shadow:0 7px 14px #0759e833}
 .selfie-sheet h2{font-size:19px;margin:0 0 4px}.selfie-sheet p{font-size:12px;color:#667493;line-height:1.55;margin:5px 0}.selfie-guide-list{display:grid;gap:9px;margin:15px 0}.selfie-guide-item{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid #dce8ff;border-radius:14px;background:#f7faff;font-size:13px}.selfie-guide-item span{font-size:20px}.selfie-consent{font-size:11px!important;background:#fff8e8;border:1px solid #ffe4a8;border-radius:12px;padding:10px;color:#76500b!important}.selfie-actions{display:flex;gap:9px;margin-top:15px}.selfie-actions button{flex:1;min-height:46px}.selfie-success-mark{width:76px;height:76px;margin:6px auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#29d77c,#079b50);color:#fff;font-size:42px;box-shadow:0 8px 22px #0a9d5540}.selfie-result-photo{width:112px;height:112px;object-fit:cover;border-radius:22px;border:4px solid #dceaff;display:block;margin:0 auto 12px}.selfie-result-meta{background:#f4f8ff;border:1px solid #dce8ff;border-radius:14px;padding:12px;font-size:12px;line-height:1.8;margin-top:12px}
 @media(min-width:600px){.selfie-backdrop{align-items:center}}
+
+/* Premium native-app visual system — consistent with the approved blue/white reference. */
+:root{--bg:#edf3ff;--ink:#10285f;--muted:#687b9e;--blue:#0759e8;--line:#dce7fb;--card:#fff;--navy:#082d78}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#e8f0ff 0%,#f5f8ff 44%,#edf3ff 100%);color:var(--ink);font-family:Arial,'Noto Sans Devanagari',sans-serif}
+header{background:linear-gradient(145deg,#052d83 0%,#075be2 58%,#1688f5 100%);padding:22px 18px 25px;border-radius:0 0 27px 27px;box-shadow:0 10px 25px #063b9b38}
+header:after{content:"";height:5px;display:block;margin:18px 0 -25px;border-radius:8px;background:linear-gradient(90deg,#8fd0ff,#fff,#8fd0ff);opacity:.8}
+header small{font-size:10px;letter-spacing:1.6px;font-weight:700}
+header h1{font-size:24px;line-height:1.2;letter-spacing:.1px}
+header p{font-size:12px;line-height:1.5;color:#eaf3ff}
+.wrap{max-width:720px;padding:15px 14px 24px}
+.date{font-weight:700;color:#49648f;margin:2px 3px 13px}
+.stats{gap:10px}
+.stat,.card{background:linear-gradient(150deg,#fff 0%,#f7faff 100%);border:1px solid #d9e5fb;border-radius:19px;box-shadow:0 5px 16px #153c8412}
+.stat{padding:14px;border-bottom:3px solid #1c76ed}
+.stat span{color:#617495;font-size:11px;font-weight:600}
+.stat strong{color:#064cc7;font-size:24px;font-weight:800}
+.stat em{color:#15865a;font-weight:700}
+.section-title{margin:23px 3px 12px}
+.section-title h2{font-size:16px;color:#102e73;font-weight:800}
+.section-title span{color:#7182a0;font-weight:600}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile,.tile:nth-child(n){min-height:112px;padding:14px 12px;text-align:left;color:#10285f;background:linear-gradient(150deg,#fff,#f3f7ff);border:1px solid #dce7fb;border-radius:19px;box-shadow:0 5px 0 #d8e5fb,0 8px 16px #143d8712}
+.tile .icon{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#e4efff,#cfe1ff);color:#0759e8;font-size:23px;box-shadow:inset 0 1px 0 #fff;margin-bottom:9px}
+.tile b{font-size:13px;line-height:1.35;color:#102e73}
+.tile small{font-size:10px;line-height:1.4;color:#7182a0}
+.tile:active{transform:translateY(2px);box-shadow:0 2px 0 #d8e5fb,0 4px 10px #143d8712}
+.card{padding:16px}
+.card h3{font-size:15px;color:#123477}
+button.primary{background:linear-gradient(135deg,#087df5,#064bc8);border-radius:13px;box-shadow:0 4px 10px #0759e82e;padding:12px 16px}
+button.secondary{background:#e9f1ff;color:#0754cf;border:1px solid #d6e5ff;border-radius:12px}
+input,select,textarea,.row input,.row select{border:1px solid #d6e3f7;border-radius:12px;background:#fbfdff;color:#10285f;min-height:44px}
+input:focus,select:focus,textarea:focus{outline:2px solid #8bbcff;outline-offset:1px}
+.nav{position:sticky;bottom:0;z-index:50;background:#ffffffed;border-top:1px solid #dce7fb;border-radius:20px 20px 0 0;box-shadow:0 -5px 20px #123d8c12;padding:9px 3px calc(9px + env(safe-area-inset-bottom))}
+.nav button{border:0;border-radius:13px;color:#7182a0;font-weight:700;padding:8px 10px}
+.nav button.active{background:linear-gradient(135deg,#087df5,#064bc8);color:#fff;box-shadow:0 4px 10px #0759e83b}
+.page.active{animation:pageFade .18s ease-out}
+.badge{font-weight:700}
+.attendance-person{border-radius:17px;border-color:#dce7fb;box-shadow:0 3px 10px #123d8c0b}
+.attendance-avatar{background:linear-gradient(145deg,#e8f1ff,#d8e7ff);color:#0759e8}
+@keyframes pageFade{from{opacity:.72;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:360px){header h1{font-size:21px}.wrap{padding-left:11px;padding-right:11px}.tile{min-height:105px}.tile b{font-size:12px}}
+
 </style></head><body>
 <header><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></header>
 <div class="wrap">
