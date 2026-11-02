@@ -3,7 +3,7 @@ name: Build Android APK
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, ui-integration-2026-11-02]
   pull_request:
     branches: [main]
 
