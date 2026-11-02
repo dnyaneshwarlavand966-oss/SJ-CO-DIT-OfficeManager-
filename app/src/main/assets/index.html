@@ -212,6 +212,54 @@ input,select,textarea{border:1px solid #c5d9ff;border-radius:12px;background:#ff
 @media(min-width:600px){.wrap{max-width:520px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media print{.nav,.screenbar{display:none!important}.wrap{padding:0}}
 
+
+/* ===== 14-screen reference-inspired mobile UI pass (final overrides) ===== */
+:root{--bg:#eaf2ff;--ink:#102b68;--muted:#60749c;--blue:#0759e8;--line:#cbdcff;--card:#fff}
+html,body{min-height:100%;background:#dce9ff}
+body{margin:0;color:var(--ink);font-family:Arial,'Noto Sans Devanagari',sans-serif;background:linear-gradient(180deg,#d9eaff 0,#f5f8ff 55%,#dce8ff 100%);padding-bottom:env(safe-area-inset-bottom)}
+.app-header{position:relative;display:flex;align-items:center;gap:12px;padding:17px 16px 18px;border-radius:0 0 24px 24px;background:linear-gradient(135deg,#031f77 0%,#0757d9 58%,#19a4ff 100%);color:#fff;box-shadow:0 7px 20px #003b9b55;overflow:hidden}
+.app-header:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,#61d7ff,#fff,#61d7ff);opacity:.85}
+.brand-mark{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#fff,#cfe8ff);color:#0751ca;font-weight:900;font-size:20px;box-shadow:0 3px 12px #001d6545;border:1px solid #b8dcff}
+.brand-copy{min-width:0}.brand-copy small{font-size:9px;letter-spacing:1px}.brand-copy h1{font-size:19px;margin:4px 0 2px;line-height:1.2}.brand-copy p{font-size:10px;margin:0;opacity:.9}
+.wrap{max-width:500px;width:100%;padding:12px 11px 24px;margin:auto}
+.page{min-height:65vh}.page.active{animation:refScreen .18s ease-out}
+@keyframes refScreen{from{opacity:.7;transform:translateY(4px)}to{opacity:1;transform:none}}
+.date{background:#fff;border:1px solid #d4e2ff;border-radius:15px;padding:10px 12px;color:#174a9f;font-weight:700;box-shadow:0 3px 10px #15438f18}
+.welcome-banner{min-height:112px;margin:10px 0 12px;padding:17px;border:1px solid #b9dcff;border-radius:19px;background:linear-gradient(110deg,#05378feF,#087ee8e8 62%,#6dcaff),linear-gradient(45deg,#c6eaff,#fff);box-shadow:0 7px 18px #0c4ba52e}
+.welcome-banner:after{content:"🏢  🏙️";font-size:34px;right:8px;bottom:8px}
+.welcome-banner b{font-size:19px}.welcome-banner span{font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.stat,.card{background:linear-gradient(145deg,#fff,#f4f8ff);border:1px solid #cbdcff;border-radius:18px;box-shadow:0 4px 13px #17458d18}
+.stat{padding:12px 11px;border-bottom:3px solid #1685ff}.stat span{font-size:10px;color:#61759b}.stat strong{font-size:22px;color:#0754ce;margin-top:6px}
+.card{padding:13px;margin-top:10px}.card h3{font-size:14px;color:#123c8e;margin:0 0 11px}
+.section-title{margin:17px 3px 9px}.section-title h2{font-size:15px;font-weight:800;color:#10377f}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tile{min-height:96px;padding:10px 6px;border:1px solid #b9d5ff;border-radius:16px;text-align:center;background:linear-gradient(145deg,#fff,#eaf3ff);color:#123a86;box-shadow:0 4px 0 #9dbdf2,0 7px 12px #0c4cb51b}
+.tile:nth-child(n){background:linear-gradient(145deg,#fff,#eaf3ff);box-shadow:0 4px 0 #a9c7f5,0 7px 12px #0c4cb51b}
+.tile .icon{width:39px;height:39px;margin:0 auto 6px;border-radius:13px;background:linear-gradient(145deg,#0b83ff,#0647c5);color:#fff;font-size:22px;box-shadow:0 3px 8px #0752c54a}
+.tile b{display:block;font-size:11px;line-height:1.25;color:#123a86}.tile small{font-size:9px;color:#64789c;line-height:1.25}
+button.primary{border:1px solid #4a9cff;border-radius:15px;padding:12px 15px;background:linear-gradient(180deg,#168aff,#0343c7);color:#fff;font-weight:800;box-shadow:0 4px 0 #07358e,0 7px 12px #0752c52b}
+button.secondary{border:1px solid #c4d9ff;border-radius:13px;padding:10px 13px;background:linear-gradient(180deg,#fff,#e6efff);color:#0754ce;font-weight:700;box-shadow:0 3px 7px #0b4aa212}
+input,select,textarea,.row input,.row select{border:1px solid #c4d8ff;border-radius:13px;background:#fff;min-height:42px;padding:10px 11px;color:#17376f;font-size:13px}
+.badge{background:#e2f8ed;color:#08784d;border:1px solid #b7ead2}
+.screenbar{position:sticky;top:0;z-index:8;margin:-12px -11px 12px;padding:12px 13px;display:flex;align-items:center;gap:12px;color:#fff;background:linear-gradient(135deg,#031f77,#0757d9 65%,#159cff);box-shadow:0 5px 14px #063d9d35}
+.screenbar button{width:36px;height:36px;border:1px solid #ffffff55;border-radius:12px;background:#ffffff20;color:#fff;font-size:25px}
+.screenbar strong{font-size:16px}
+.nav{position:sticky;bottom:0;z-index:20;display:flex;gap:2px;margin:0 -1px;background:#ffffffef;border:1px solid #cbdcff;border-radius:18px 18px 0 0;padding:7px 2px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -5px 18px #123d8c18;backdrop-filter:blur(12px)}
+.nav button{flex:1;min-width:0;padding:5px 2px;border:0;border-radius:11px;background:transparent;color:#53698f;font-size:9px;line-height:1.35}
+.nav button.active{background:linear-gradient(180deg,#1685ff,#0344cb);color:#fff;font-weight:800;box-shadow:0 3px 8px #0759d84a}
+.attendance-person,.leave-row,.doc-row{border:1px solid #cbdcff;border-radius:16px;background:linear-gradient(145deg,#fff,#f2f7ff);box-shadow:0 4px 11px #17458d12}
+.attendance-avatar,.staff-avatar{border:2px solid #fff;box-shadow:0 2px 8px #0a5cbd25}
+.attendance-tap{border-radius:13px;background:linear-gradient(180deg,#1685ff,#0344cb);box-shadow:0 3px 0 #06368f}
+#tea .card,#attendance .card,#staff .card,#leave .card,#salary .card,#documents .card,#reports .card,#expense .card,#income .card,#tasks .card,#clients .card,#settings .card{margin-top:11px}
+#tea #monthlyDrinkCounters>div{border:1px solid #cbdcff!important;border-radius:17px!important;background:linear-gradient(145deg,#fff,#edf4ff);box-shadow:0 4px 12px #17458d12}
+#salary .card{border:2px solid #b9d2ff}
+#settings .card{border:1px solid #b9d2ff}
+table{font-size:11px}th,td{padding:9px 5px;border-bottom:1px solid #dce7fb}
+.empty{color:#64789c;font-size:11px;line-height:1.45}
+@media(min-width:600px){.wrap{max-width:500px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media print{body{background:#fff}.app-header,.nav,.screenbar{display:none!important}.wrap{max-width:none}.page{display:none!important}.page.active{display:block!important}}
+
 </style></head><body>
 <header class="app-header"><div class="brand-mark">SJ</div><div class="brand-copy"><small>SJ & CO.DIT · OFFICE SUITE</small><h1>Office Manager</h1><p>तुमच्या ऑफिसचे हिशोब आणि दैनंदिन व्यवस्थापन</p></div></header>
 <div class="wrap">
